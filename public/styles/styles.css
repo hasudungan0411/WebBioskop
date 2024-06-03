@@ -1,0 +1,170 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+nav.navbar {
+  margin-bottom: 20px;
+  background-color: #015351 !important; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.table th, .table td {
+  text-align: center;
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-color: #fff;
+}
+
+.navbar-dark .navbar-toggler {
+  color: #fff;
+  border-color: #fff;
+}
+
+.navbar-dark .navbar-toggler:hover {
+  background-color: #fff;
+  color: #015351;
+}
+
+.film-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border: 3px solid #ccc;
+  background: #D9D9D9;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.container .item {
+  text-align: center ;
+  margin: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+/* Slideshow container */
+.slideshow-container {
+width: 1100px;
+position: relative;
+margin: auto;
+margin-right: 50px;
+}
+
+.active {
+background-color: #0f0f0f;
+}
+
+/* Fading animation */
+.fade {
+animation-name: fade;
+animation-duration: 1.5s;
+}
+
+@keyframes fade {
+from {opacity: .4} 
+to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+.text {font-size: 11px}
+}
+
+.container .item img {
+  width: 100px;
+  height: auto;
+  border: 2px solid #1f1d1d;
+  border-radius: 8px;
+  width: 300px;
+  height: 450px;
+  border: 3px solid #ccc;
+  background: #eee;
+  margin: auto;
+  padding: 30px 10px ;
+}
+
+.container .item h6 {
+position: absolute; /* Menetapkan posisi absolut untuk judul */
+top: 96%; /* Posisi vertikal di tengah */
+left: 50%; /* Posisi horizontal di tengah */
+transform: translate(-50%, -50%); /* Untuk memusatkan judul */
+
+}
+
+footer.bg-dark {
+  background-color: #015351 !important; 
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.container2 {
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+position: relative;
+}
+
+.container1 {
+  padding-top: 10px; 
+  position: relative;
+  display: flex;
+}
+
+.list-group {
+  margin-top: 30px; 
+
+}
+
+.mall-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-mall {
+  cursor: pointer;
+}
+
+img {
+  height: 250px;
+  width: 185px;
+  margin-left: 50px;
+  float: left;
+}
+
+.heading {
+  height: 100px;
+  color:rgb(18, 17, 17);
+  margin-left: 50px;
+  line-height: 5px;
+}
+
+.para{
+height: 250px;
+width: 280px;
+margin-left: 300px;
+line-height: 30px;
+}
+
+.wow {
+  margin-left: 50px; 
+  line-height: 100px;
+}
+
+.price {
+  margin-left: 1100px; 
+  font-size: 25px;
+}
+
