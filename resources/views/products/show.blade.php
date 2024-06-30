@@ -1,56 +1,34 @@
-@extends('layouts.app')
+<!-- resources/views/products/show.blade.php -->
 
-@section('title', 'Show Film')
+@extends('layouts.user')
+
+@section('title', $product->judul)
 
 @section('contents')
-<h1 class="font-bold text-2xl ml-3">Detail Film</h1>
-<hr />
-<div class="border-b border-gray-900/10 pb-12">
-    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Judul</label>
-            <div class="mt-2">
-                {{ $product->judul }}
+<div class="container mx-auto py-8">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex flex-wrap items-start">
+            <div class="w-full md:w-1/2 lg:w-1/3">
+                <img src="{{ asset('images/'.$product->image) }}" alt="{{ $product->judul }}" class="w-full h-auto rounded-lg">
+            </div>
+            <div class="w-full md:w-1/2 lg:w-2/3 pl-6 flex flex-col justify-start">
+                <h1 class="text-3xl font-semibold mb-2">{{ $product->judul }}</h1>
+                <p class="text-gray-600 mb-4">{{ $product->genre }}</p>
+                <div class="flex items-center text-gray-600 mb-4">
+                    <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 1.5" />
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span>Durasi: {{ $product->durasi }}</span>
+                </div>
+                <a href="{{ route('pembelian.tiket', $product->id) }}" class="bg-green-500 text-white px-4 py-2 rounded mb-4 max-w-max">Beli Tiket</a>
+                <a href="{{ $product->trailer }}" target="_blank" class="bg-blue-500 text-white px-4 py-2 rounded max-w-max">Trailer</a>
             </div>
         </div>
-
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Genre</label>
-            <div class="mt-2">
-                {{ $product->genre }}
-            </div>
+        <div class="mt-6 bg-gray-300 p-5 rounded-lg">
+            <h2 class="text-xl font-semibold">Sinopsis</h2>
+            <p>{{ $product->description }}</p>
         </div>
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Harga</label>
-            <div class="mt-2">
-                {{ $product->harga }}
-            </div>
-        </div>
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Kategori</label>
-            <div class="mt-2">
-                {{ $product->kategori }}
-            </div>
-        </div>
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Trailer</label>
-            <div class="mt-2">
-                <a href="{{ $product->trailer }}" target="_blank">Tonton Trailer</a>
-            </div>
-        </div>
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Image</label>
-            <div class="mt-2">
-                {{ $product->image }}
-            </div>
-        </div>
-        <div class="sm:col-span-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-            <div class="mt-2">
-                {{ $product->description }}
-            </div>
-        </div>
-        </form>
     </div>
 </div>
 @endsection

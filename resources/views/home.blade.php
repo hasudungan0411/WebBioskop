@@ -9,7 +9,7 @@
             <a class="slide w-full flex-shrink-0">
                 <img src="images/film7.jpg" class="w-full h-80" alt="Film 7">
             </a>
-            <a href="{{ route('film/film2') }}"class="slide w-full flex-shrink-0">
+            <a href="{{ route('film/film2') }}" class="slide w-full flex-shrink-0">
                 <img src="images/film10.jpg" class="w-full h-80" alt="Film 10">
             </a>
             <a class="slide w-full flex-shrink-0">
@@ -25,7 +25,8 @@
         </div>
     </div>
 
-    <div class=" grid grid-cols-3 gap-3 mt-6">
+    <div class="grid grid-cols-3 gap-3 mt-6">
+        <!-- Film lain -->
         <a href="{{ route('film/film1') }}" class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
             <img src="images/film1.jpg" alt="Film 1" class="w-full h-auto">
             <h6 class="text-center mt-2">Kung Fu Panda 4</h6>
@@ -38,19 +39,16 @@
             <img src="images/film3.jpg" alt="Film 3" class="w-full h-auto">
             <h6 class="text-center mt-2">Land Of Bad</h6>
         </div>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film4.jpg" alt="Film 4" class="w-full h-auto">
-            <h6 class="text-center mt-2">Perjalanan Pembuktian Cinta</h6>
-        </div>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film5.jpg" alt="Film 5" class="w-full h-auto">
-            <h6 class="text-center mt-2">Pasar Setan</h6>
-        </div>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film6.jpg" alt="Film 6" class="w-full h-auto">
-            <h6 class="text-center mt-2">Madame Web</h6>
-        </div>
+        
     </div>
+    <div class="grid grid-cols-3 gap-3 mt-6">
+        @foreach ($nowPlaying as $movie)
+            <a href="{{ route('products.show', $movie->id) }}" class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
+                <img src="{{ asset('images/'.$movie->image) }}" alt="{{ $movie->judul }}" class="w-full h-auto">
+                <h6 class="text-center mt-2">{{ $movie->judul }}</h6>
+            </a>
+        @endforeach
+    </div>    
 </div>
 
 <script>

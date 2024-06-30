@@ -1,81 +1,95 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
-use Illuminate\Http\Request;
+
 use App\Models\Product;
- 
+use Illuminate\Http\Request;
+
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $product = Product::orderBy('created_at', 'DESC')->get();
- 
-        return view('products.index', compact('product'));
+        $products = Product::all();
+
+        return view('products.index', compact('products'));
     }
- 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('products.create');
     }
- 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        Product::create($request->all());
- 
-        return redirect()->route('admin/products')->with('success', 'film added successfully');
+        // Validation logic
+        $validatedData = $request->validate([
+            'judul' => 'required|string|max:255',
+            'genre' => 'required|string|max:255',
+            'durasi' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+            'kategori' => 'required|in:upcoming,now playing',
+            'trailer' => 'nullable|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string',
+        ]);
+
+        // File upload logic
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $validatedData['image'] = $imageName;
+        }
+
+        // Create new product record in the database
+        $product = Product::create($validatedData);
+
+        // Redirect to a success page or route
+        return redirect()->route('products.index')->with('success', 'berhasil menambahkan film');
     }
- 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
- 
-        return view('products.show', compact('product'));
-    }
- 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $product = Product::findOrFail($id);
- 
         return view('products.edit', compact('product'));
     }
- 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, Product $product)
     {
-        $product = Product::findOrFail($id);
- 
-        $product->update($request->all());
- 
-        return redirect()->route('admin/products')->with('success', 'film updated successfully');
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'genre' => 'required|string|max:255',
+            'durasi' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+            'kategori' => 'required|in:upcoming,now playing',
+            'trailer' => 'nullable|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string',
+        ]);
+
+        // Handle image upload if necessary
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $validatedData['image'] = $imageName;
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('products.index')->with('success', 'Film Berhasil diupdate.');
     }
- 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    public function show($id)
     {
         $product = Product::findOrFail($id);
- 
+        return view('products.show', compact('product'));
+    }
+
+    public function destroy(Product $product)
+    {
         $product->delete();
- 
-        return redirect()->route('admin/products')->with('success', 'film deleted successfully');
+
+        return redirect()->route('products.index')->with('success', 'Film Berhasil di Hapus.');
     }
 }

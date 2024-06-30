@@ -5,7 +5,7 @@
 @section('contents')
 <div>
     <h1 class="font-bold text-2xl ml-3">Home Film List</h1>
-    <a href="{{ route('admin/products/create') }}" class="text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Product</a>
+    <a href="{{ route('products.create') }}" class="text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New Film</a>
     <hr />
     @if(Session::has('success'))
     <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -19,8 +19,9 @@
                 <th scope="col" class="px-6 py-3">#</th>
                 <th scope="col" class="px-6 py-3">Judul</th>
                 <th scope="col" class="px-6 py-3">Genre</th>
-                <th scope="col" class="px-6 py-3">harga</th>
-                <th scope="col" class="px-6 py-3">kategori</th>
+                <th scope="col" class="px-6 py-3">Durasi</th>
+                <th scope="col" class="px-6 py-3">Harga</th>
+                <th scope="col" class="px-6 py-3">Kategori</th>
                 <th scope="col" class="px-6 py-3">Trailer</th>
                 <th scope="col" class="px-6 py-3">Image</th>
                 <th scope="col" class="px-6 py-3">Description</th>
@@ -28,23 +29,25 @@
             </tr>
         </thead>
         <tbody>
-            @if($product->count() > 0)
-            @foreach($product as $rs)
+            @if($products->count() > 0) <!-- Menggunakan 'products' sesuai variabel dari controller -->
+            @foreach($products as $rs)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ $loop->iteration }}
                 </th>
-                <td>
+                <td class="px-6 py-3">
                     {{ $rs->judul }}
                 </td>
-                <td>
+                <td class="px-6 py-3">
                     {{ $rs->genre }}
                 </td>
-                <td>
+                <td class="px-6 py-3">
+                    {{ $rs->durasi }} <!-- Pastikan durasi ditampilkan -->
+                </td>
+                <td class="px-6 py-3">
                     {{ $rs->harga }}
                 </td>
-    
-                <td>
+                <td class="px-6 py-3">
                     @if($rs->kategori == 'upcoming')
                     Upcoming
                     @elseif($rs->kategori == 'now playing')
@@ -53,27 +56,26 @@
                     {{ $rs->kategori }}
                     @endif
                 </td>
-                <td>
+                <td class="px-6 py-3">
                     @if($rs->trailer)
                     <a href="{{ $rs->trailer }}" target="_blank">Tonton Trailer</a>
                     @else
                     N/A
                     @endif
                 </td>
-                <td>
+                <td class="px-6 py-3">
                     <a href="{{ asset('images/' . $rs->image) }}" target="_blank">Buka Disini</a>
                 </td>
-                <td>
+                <td class="px-6 py-3">
                     {{ $rs->description }}
                 </td>
-                <td class="w-36">
+                <td class="px-6 py-3 w-36">
                     <div class="h-14 pt-5">
-                        <a href="{{ route('admin/products/show', $rs->id) }}" class="text-blue-800">Detail</a> |
-                        <a href="{{ route('admin/products/edit', $rs->id)}}" class="text-green-800 pl-2">Edit</a> |
-                        <form action="{{ route('admin/products/destroy', $rs->id) }}" method="POST" onsubmit="return confirm('Delete?')" class="float-right text-red-800">
+                        <a href="{{ route('products.edit', $rs->id)}}" class="text-green-800 pl-2">Edit</a> |
+                        <form action="{{ route('products.destroy', $rs->id) }}" method="POST" onsubmit="return confirm('apakah anda yakin ingin menghapus film?')" class="inline text-red-800">
                             @csrf
                             @method('DELETE')
-                            <button>Delete</button>
+                            <button type="submit">Delete</button>
                         </form>
                     </div>
                 </td>
@@ -81,7 +83,7 @@
             @endforeach
             @else
             <tr>
-                <td class="text-center" colspan="5">Film not found</td>
+                <td class="text-center" colspan="10">Film not found</td> 
             </tr>
             @endif
         </tbody>

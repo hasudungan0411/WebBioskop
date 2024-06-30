@@ -24,11 +24,16 @@ class AuthController extends Controller
  
     public function registerSave(Request $request)
     {
+
+        $messages = [
+            'password.min' => 'error!!Password harus minimal 5 karakter ya.',
+        ];
+
         Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed'
-        ])->validate();
+            'password' => 'required|confirmed|min:5'
+        ], $messages)->validate();
  
         User::create([
             'name' => $request->name,
@@ -84,20 +89,18 @@ class AuthController extends Controller
  
         if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed')
+                'email' => 'email atau password tidak valid, coba lagi!!',
             ]);
+            
         }
 
         $request->session()->regenerate();
  
         if (auth()->user()->type == 'admin') {
-            return redirect()->route('admin/home');
+            return redirect()->route('admin.home');
         } else {
             return redirect()->route('home');
         }
-         
-        
-         
         
     }
  

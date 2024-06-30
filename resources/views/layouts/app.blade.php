@@ -28,7 +28,7 @@
             </svg>
             <div data-dropdown-items class="text-sm text-left absolute top-0 right-0 mt-16 mr-4 bg-white rounded border border-gray-400 shadow" x-show="open" @click.away="open = false">
                 <ul>
-                    <li class="px-4 py-3 border-b hover:bg-gray-200"><a href="{{ route('admin/profile') }}">My Profile</a></li>
+                    <li class="px-4 py-3 border-b hover:bg-gray-200"><a href="{{ route('admin.profile') }}">My Profile</a></li>
                     <li class="px-4 py-3 hover:bg-gray-200"><a href="{{ route('logout') }}">Log out</a></li>
                 </ul>
             </div>
@@ -46,22 +46,28 @@
                         <h1 class="font-bold text-gray-200 text-[15px] ml-3">Admin FilmFlix</h1>
                     </div>
                 </div>
-                <a href="{{ route('admin/home') }}">
+                <a href="{{ route('admin.home') }}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="bi bi-house-door-fill"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
                     </div>
                 </a>
-                <a href="{{ route('admin/listfilm/daftar') }}">
+                {{-- <a href="{{ route('admin.listfilm.daftar') }}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="bi bi-bookmark-fill"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Daftar Film</span>
                     </div>
-                </a>
-                <a href="{{ route('admin/products') }}">
+                </a> --}}
+                <a href="{{ route('products.index') }}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="bi bi-bookmark-fill"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Tambah Film</span>
+                    </div>
+                </a>
+                <a href="{{ route('movies.index')}}">
+                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                        <i class="bi bi-bookmark-fill"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">manage Film</span>
                     </div>
                 </a>
             </div>

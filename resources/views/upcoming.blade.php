@@ -38,18 +38,15 @@
             <img src="images/film4.jpg" alt="Film 3" class="w-full h-auto">
             <h6 class="text-center mt-2">Perjalanan Pembuktian Cinta</h6>
         </a>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film3.jpg" alt="Film 4" class="w-full h-auto">
-            <h6 class="text-center mt-2">Land Of Bad</h6>
-        </div>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film2.jpg" alt="Film 5" class="w-full h-auto">
-            <h6 class="text-center mt-2">Dune: Part Two</h6>
-        </div>
-        <div class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
-            <img src="images/film1.jpg" alt="Film 6" class="w-full h-auto">
-            <h6 class="text-center mt-2">Kung Fu Panda 4</h6>
-        </div>
+        
+    </div>
+    <div class="grid grid-cols-3 gap-3 mt-6">
+        @foreach ($upcoming as $movie)
+            <a href="{{ route('upcoming.show', $movie->id) }}" class="flex flex-col items-center bg-white border rounded-md p-2 shadow">
+                <img src="{{ asset('images/'.$movie->image) }}" alt="{{ $movie->judul }}" class="w-full h-auto">
+                <h6 class="text-center mt-2">{{ $movie->judul }}</h6>
+            </a>
+        @endforeach
     </div>
 </div>
 
